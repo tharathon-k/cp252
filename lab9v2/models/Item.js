@@ -38,7 +38,7 @@ class ItemManager {
     this.items.push(item);
     this._encryptSensitiveData(name);
     console.timeEnd("createItem");
-    return item;
+    return item; // 1.000s
   }
 
   addComment(itemId, comment) {
@@ -51,7 +51,7 @@ class ItemManager {
       isuccess = true;
     }
     console.timeEnd("addComment");
-    return isuccess;
+    return isuccess; // 999.936ms
   }
 
   _encryptSensitiveData(name) {

@@ -9,12 +9,13 @@ class CategoryManager {
 
   create(name) {
     console.time("createCategory");
-    let isuccess = false;
+    let is_success = false;
     if (!this.categories.includes(name)) {
       this.categories.push(name);
-      isuccess = true
+      is_success = true;
     }
-    return isuccess;
+    console.timeEnd("createCategory");
+    return is_success; // 0.009ms
   }
 }
 

@@ -1,8 +1,7 @@
 const Sentry = require("@sentry/node");
 const { nodeProfilingIntegration } = require("@sentry/profiling-node");
 Sentry.init({
-  dsn: "I said gg 5 time"
-,
+  dsn: "https://15e93df7d82fdXXXXX@oXXXXXXXXXXXXX.ingest.us.sentry.io/451111601XXXXXXX",
   integrations: [
     // Add our Profiling integration
     nodeProfilingIntegration(),
