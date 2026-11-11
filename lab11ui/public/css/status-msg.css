@@ -1,0 +1,42 @@
+p.success-msg,
+p.error-msg {
+    border: var(--border-width) solid;
+    border-radius: var(--standard-border-radius);
+    padding: 10px 14px;
+    font-size: 0.875rem;
+    font-family: var(--sans-font);
+    line-height: 1.5;
+    margin: 8px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Success message */
+p.success-msg {
+    color: #15803d;
+    background-color: #f0fdf4;
+    border-color: #bbf7d0;
+}
+
+/* Error message */
+p.error-msg {
+    color: #b91c1c;
+    background-color: #fef2f2;
+    border-color: #fecaca;
+}
+
+/* Dark mode */
+@media (prefers-color-scheme: dark) {
+    p.success-msg {
+    color: #86efac;
+    background-color: #14291c;
+    border-color: #166534;
+    }
+
+    p.error-msg {
+    color: #fca5a5;
+    background-color: #2d1717;
+    border-color: #991b1b;
+    }
+}
