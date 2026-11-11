@@ -2,30 +2,112 @@
 <html>
 <head>
   <title><%= item.name %></title>
-  <!-- <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css"> -->
   <%- include('../partials/head') %>
+
+  <style>
+    /* Structure, spacing, and layout only (no colors) */
+    .item-card-container {
+      max-width: 650px;
+      margin: 2rem auto;
+      padding: 2rem;
+      border: 1px solid currentColor;
+      border-radius: 8px;
+    }
+
+    .item-card-container h1 {
+      margin-top: 0;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid currentColor;
+    }
+
+    .item-details {
+      margin: 1.5rem 0;
+    }
+
+    .item-details p {
+      margin: 0.4rem 0;
+      line-height: 1.5;
+    }
+
+    .comments-section {
+      margin-top: 2rem;
+    }
+
+    .comment-item {
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .comment-item p {
+      margin: 0 0 0.25rem 0;
+    }
+
+    .comment-item small {
+      display: block;
+      opacity: 0.75;
+      font-size: 0.85em;
+    }
+
+    .comment-form {
+      display: flex;
+      gap: 0.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .comment-form input[type="text"] {
+      flex: 1;
+      padding: 0.6rem 0.8rem;
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .comment-form button {
+      padding: 0.6rem 1.2rem;
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      font: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 0.5rem;
+      font-weight: 500;
+    }
+  </style>
 </head>
 <body>
-  <h1><%= item.name %></h1>
-  <p><strong>Category:</strong> <%= item.category %></p>
-  <p><strong>Detail:</strong> <%= item.detail %></p>
-  
-  <h3>Comments</h3>
-  <div id="comments">
-    <% item.comments.forEach(comment => { %>
-      <div>
-        <p><%= comment.text %></p>
-        <small><%= comment.timestamp %></small>
+  <div class="item-card-container">
+    <h1><%= item.name %></h1>
+    
+    <div class="item-details">
+      <p><strong>Category:</strong> <%= item.category %></p>
+      <p><strong>Detail:</strong> <%= item.detail %></p>
+    </div>
+    
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <div id="comments">
+        <% item.comments.forEach(comment => { %>
+          <div class="comment-item">
+            <p><%= comment.text %></p>
+            <small><%= comment.timestamp %></small>
+          </div>
+        <% }) %>
       </div>
-    <% }) %>
+    </div>
+    
+    <form id="commentForm" class="comment-form">
+      <input type="text" id="commentText" placeholder="Add a comment" required>
+      <button type="submit">Add Comment</button>
+    </form>
+    
+    <a href="/" class="back-link">&larr; Back to Items</a>
   </div>
-  
-  <form id="commentForm">
-    <input type="text" id="commentText" placeholder="Add a comment" required>
-    <button type="submit">Add Comment</button>
-  </form>
-  
-  <a href="/">Back to Items</a>
 
   <script>
     document.getElementById('commentForm').addEventListener('submit', async (e) => {

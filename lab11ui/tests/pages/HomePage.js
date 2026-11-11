@@ -5,7 +5,7 @@ class HomePage {
   constructor(page) {
     this.page = page;
     this.heading = page.locator('h1');
-    this.addNewItemLink = page.getByRole('link', { name: 'Add New Item' });
+    this.addNewItemLink = page.getByRole('link', { name: 'Add Item' });
     this.addCategoryLink = page.getByRole('link', { name: 'Add Category' });
     this.noItemsMessage = page.getByText('No items found.');
     this.itemList = page.locator('ul');

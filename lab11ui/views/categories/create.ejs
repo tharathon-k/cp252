@@ -1,32 +1,213 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <title>Add Category</title>
-  <!-- <link rel="stylesheet" href="https://cdn.simplecss.org/simple.css"> -->
   <%- include('../partials/head') %>
-</head>
-<body>
-  <h1>Add New Category</h1>
-  <form action="/categories" method="POST">
-    <div>
-      <label>Category Name:</label>
-      <input type="text" name="name" required>
-    </div>
-    
-    <% if (status === 'error') { %>
-      <p class="error-msg">Cannot create category!</p>
-    <% } else if (status === 'success') { %>
-      <p class="success-msg">Created category.</p>
-    <% } %>
 
-    <button type="submit">Add Category</button>
-  </form>
-  <a href="/">Back to Items</a>
-  
+  <style>
+    .form-container {
+      max-width: 650px;
+      width: 100%;
+      margin: 2rem auto;
+      padding: 2rem;
+      border: var(--border-width) solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background-color: var(--bg);
+    }
+
+    /* Header */
+    .form-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: var(--border-width) solid var(--border);
+    }
+
+    .form-header h1 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .form-header p {
+      margin: 0.5rem 0 0;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* Form */
+    .category-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .form-group input {
+      width: 100%;
+      margin: 0;
+      padding: 0.75rem;
+      border: var(--border-width) solid var(--border);
+      border-radius: var(--standard-border-radius);
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+      border-color: var(--accent);
+    }
+
+    /* Status messages */
+    .status-message {
+      padding: 0.85rem 1rem;
+      margin: 0;
+      border: var(--border-width) solid var(--border);
+      border-radius: var(--standard-border-radius);
+      font-size: 0.95rem;
+    }
+
+    .error-msg {
+      background-color: var(--accent-bg);
+      color: var(--text);
+      border-left: 4px solid #d32f2f;
+    }
+
+    .success-msg {
+      background-color: var(--accent-bg);
+      color: var(--text);
+      border-left: 4px solid #2e7d32;
+    }
+
+    /* Actions */
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+
+    .submit-btn {
+      padding: 0.65rem 1.25rem;
+      border: var(--border-width) solid var(--accent);
+      border-radius: var(--standard-border-radius);
+      background-color: var(--accent);
+      color: var(--accent-text);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .back-link {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 720px) {
+      .form-container {
+        margin: 1rem auto;
+        padding: 1.25rem;
+      }
+
+      .form-header h1 {
+        font-size: 1.75rem;
+      }
+
+      .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .submit-btn {
+        width: 100%;
+      }
+
+      .back-link {
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="form-container">
+
+    <header class="form-header">
+      <h1>Add New Category</h1>
+      <p>Create a category to organize your inventory items.</p>
+    </header>
+
+    <form action="/categories" method="POST" class="category-form">
+
+      <div class="form-group">
+        <label for="name">Category Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter category name"
+          required
+        >
+      </div>
+
+      
+      <% if (status === 'error' && message) { %>
+        <p class="status-message error-msg" role="alert">
+          <%= message %>
+        </p>
+      <% } else if (status === 'success' && message) { %>
+        <p class="status-message success-msg" role="status">
+          <%= message %>
+        </p>
+      <% } %>
+
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">
+          Add Category
+        </button>
+
+        <a href="/" class="back-link">
+          ← Back to Items
+        </a>
+      </div>
+
+    </form>
+
+  </main>
+
   <script>
-    if (window.location.search.includes('status=')) {
+    const params = new URLSearchParams(window.location.search);
+
+    if (params.has('status') || params.has('message')) {
       window.history.replaceState(null, '', window.location.pathname);
     }
   </script>
+
 </body>
 </html>
