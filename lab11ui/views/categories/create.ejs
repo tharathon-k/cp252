@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Category</title>
+  <style>
+    p.success-msg {
+      color: #15803d;
+      background-color: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.875rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p.error-msg {
+      color: #b91c1c;
+      background-color: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 6px;
+      padding: 10px 14px;
+      font-size: 0.875rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      margin: 8px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Add New Category</h1>
+  <form action="/categories" method="POST">
+    <div>
+      <label>Category Name:</label>
+      <input type="text" name="name" required>
+    </div>
+    
+    <% if (status === 'error') { %>
+      <p class="error-msg">Cannot create category!</p>
+    <% } else if (status === 'success') { %>
+      <p class="success-msg">Created category.</p>
+    <% } %>
+
+    <button type="submit">Add Category</button>
+  </form>
+  <a href="/">Back to Items</a>
+  
+  <script>
+    if (window.location.search.includes('status=')) {
+      window.history.replaceState(null, '', window.location.pathname);
+    }
+  </script>
+</body>
+</html>
